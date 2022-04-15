@@ -1,0 +1,86 @@
+Examples: 
+
+5 - 9ln(7*9)
+	1. Compute () first so (7*9) = 63
+	2. Compute ln(63) = lnANS
+	3. Compute 9*lnANS = lnANS2
+	4. Compute 5 - lnANS2
+
+
+6 + 8(5 - 6(3 + 9))
+	1. Compute 3 + 9 = 12
+	2. Compute 6(12) = 72
+	3. Compute 5 - 72 = -67
+	4. Compute 8 * -67 = -536
+	5. Compute 6 + -536 = -530
+
+____________________________________________________
+
+Steps:
+	1. Find innermost parenthesis
+	2. Compute whatever is inside
+	3. Find next set of parenthesis IF they exist
+	4. IF none exist, compute the remaining equation using PEMDAS
+* NOTES: IF log, ln, etc. appear, use their designated funtions
+	 IF 'number(' appears use multiplcation
+
+
+New Steps:
+	1. Scan until the first parenthesis is found
+	2. Check what is before the parenthesis (number or operation) - step is variable to change position wise
+	3. Scan the rest of the string until the closing parenthesis is found
+	4. Scan the new substring for more parenthesis
+	5. Repeat until no parenthesis are found
+	6. 
+
+
+
+
+
+Ex:		6 + 9(2 + (4 * 5)) - 8
+			9(2 + (4 * 5))
+			 (2 + (4 * 5))
+			 	  (4 * 5)
+			 (2 + 20)
+			 (22)
+			9(22)
+		6 +	198 - 8
+		ANS: 196
+
+
+
+
+
+	1. Scan string until '(' is found
+		- '(' is found, now mark its position (or take the rest of the string elsewhere)
+	2. Check what is infront of it - in this case 9
+	3. Add 9 to the stack 
+		- We now have: (2 + (4 * 5))
+	4. Scan for more '(' and continue until ')' is found
+	5. Evaluate the innermost () - (4*5)
+	6. Reinsert it into the equation - (2 + 20)
+	7. Compute - 9(2 + 20)
+	8. Reinsert into the equation - 6 + 198 - 8
+	9. Evaluate
+
+Summary:
+	1. Find the first '(' and the last ')'
+	2. Research the new segment for more parenthesis
+	3. Repeat and calculate until no more parenthesis exist
+	4. Reinsert the calculations back into the original expression
+	5. Solve
+
+Structure Ideas:
+	1. Scan for parenthesis, IF none are found, evaluate, ELSE place each char onto a stack until '(' is found 
+	2. Check the last stack entry to see if it is a number or operation 
+		- IF it is a number, place onto queue, ELSE, nothing (may not be needed)
+		- * NOTE: ln and log both contain parenthesis *
+	3. Find the last instance of ')' (Use rindex() or rfind())
+	4. Once the index is found of the last ')' 
+
+
+
+Think about double parenthesis:
+
+9(2 + (4 * 5)) - (8 + 5) - 5
+ (2 + (4 * 5)) - (8 + 5) -> how would we evaluate this?
